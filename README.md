@@ -40,7 +40,7 @@ Put &lt;msc-any-pip /> into HTML document. It will have different functions and 
 
 ```html
 <script type="module">
-import { MscAynPip } from 'https://your-domain/wc-msc-any-pip.js';
+import { MscAnyPip } from 'https://your-domain/wc-msc-any-pip.js';
 
 const template = document.querySelector('.my-template');
 
