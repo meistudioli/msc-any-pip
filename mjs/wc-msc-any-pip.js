@@ -35,6 +35,7 @@ ${_wccss}
 
   --btn-size: 40px;
   --btn-icon-color: rgba(255 255 255);
+  --btn-z-index: var(--msc-any-pip-button-z-index, 1);
 }
 
 .btn-pip {
@@ -54,7 +55,7 @@ ${_wccss}
 :is(.main--active,.main--active--not-support) .btn-pip{--btn-scale:var(--btn-scale-active);}
 
 .main{position:relative;inline-size:100%;outline:0 none;}
-.btn-pip{position:absolute;inset-inline-end:8px;inset-block-start:8px;inline-size:var(--btn-size);aspect-ratio:1/1;font-size:0;color:transparent;background:var(--btn-background-color);border-radius:var(--btn-size);padding:0;margin:0;appearance:none;border:0 none;box-shadow:none;display:grid;place-content:center;outline:0 none;overflow:hidden;scale:var(--btn-scale);transition:background-color 200ms ease-in-out,scale 150ms linear;}
+.btn-pip{position:absolute;inset-inline-end:8px;inset-block-start:8px;inline-size:var(--btn-size);aspect-ratio:1/1;font-size:0;color:transparent;background:var(--btn-background-color);border-radius:var(--btn-size);padding:0;margin:0;appearance:none;border:0 none;box-shadow:none;display:grid;place-content:center;outline:0 none;overflow:hidden;scale:var(--btn-scale);transition:background-color 200ms ease-in-out,scale 150ms linear;z-index:var(--btn-z-index);}
 .btn-pip::before{content:'';inline-size:24px;aspect-ratio:1/1;background-color:var(--btn-icon-color);display:block;clip-path:var(--icon-pip);}
 .btn-pip:active{scale:.8;transition-duration:0ms;}
 .btn-pip:focus-visible{--btn-opacity:var(--btn-opacity-active);}

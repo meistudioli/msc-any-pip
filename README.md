@@ -93,6 +93,7 @@ msc-any-pip {
   --msc-any-pip-piping-text: 'Playing in Picture-in-Picture.';
   --msc-any-pip-piping-color: #39e75f;
   --msc-any-pip-piping-font-size: 16px;
+  --msc-any-pip-button-z-index: 1;
 }
 </style>
 ```
