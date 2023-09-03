@@ -25,13 +25,29 @@ Put &lt;msc-any-pip /> into HTML document. It will have different functions and 
 
 ```html
 <msc-any-pip>
+  <script type="application/json">
+    {
+      "width": 450,
+      "height": 300
+    }
+  </script>
+
   <!-- Put any HTML element you like -->
   <div class="element-i-like-to-have-pip">
     ...
     ...
-    ..
+    ...
   </div>
 </msc-any-pip>
+```
+
+Otherwise, developers could also choose `remoteconfig` to fetch config for &lt;msc-any-pip /&gt;.
+
+```html
+<msc-any-pip
+  remoteconfig="https://your-domain/api-path"
+  ...
+></msc-any-pip>
 ```
 
 ## JavaScript Instantiation
@@ -53,6 +69,17 @@ nodeA.appendChild(template.content.cloneNode(true));
 const nodeB = new MscAnyPip();
 document.body.appendChild(nodeB);
 nodeB.appendChild(template.content.cloneNode(true));
+nodeB.width = 450;
+nodeB.height = 300;
+
+// new instance with Class & default config
+const config = {
+  width: 450,
+  height: 300
+};
+const nodeC = new MscAnyPip(config);
+document.body.appendChild(nodeC);
+nodeC.appendChild(template.content.cloneNode(true));
 </script>
 ```
 
@@ -69,6 +96,37 @@ msc-any-pip {
 }
 </style>
 ```
+
+## Attributes
+
+&lt;msc-any-pip /> supports some attributes to let it become more convenience & useful.
+
+- **width**
+
+Set Picture-in-Picture window width. Default is &lt;msc-any-pip />'s `width`. （Picture-in-Picture's min window width is 300）
+
+```html
+<msc-any-pip width="450">
+  ...
+</msc-any-pip>
+```
+
+- **height**
+
+Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `height`. （Picture-in-Picture's min window height is 300）
+
+```html
+<msc-any-pip height="300">
+  ...
+</msc-any-pip>
+```
+
+## Properties
+
+| Property Name | Type | Description |
+| ----------- | ----------- | ----------- |
+| width | Number | Getter / Setter for &lt;msc-any-pip />'s width. This will affect Picture-in-Picture window width. Default is &lt;msc-any-pip />'s width. |
+| height | Number | Getter / Setter for &lt;msc-any-pip />'s height. This will affect Picture-in-Picture window height. Default is &lt;msc-any-pip />'s height. |
 
 ## Events
 

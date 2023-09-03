@@ -3,11 +3,15 @@ import { _wccss } from './common-css.js';
 
 /*
  reference:
+ - documentPictureInPicture min-size: 300 x 300
  - https://developer.chrome.com/docs/web-platform/document-picture-in-picture/
 */
 
 
-const defaults = {};
+const defaults = {
+  width: 0,
+  height: 0
+};
 const booleanAttrs = []; // booleanAttrs default should be false
 const objectAttrs = [];
 const custumEvents = {
@@ -126,8 +130,8 @@ export class MscAnyPip extends HTMLElement {
   }
 
   async connectedCallback() {
-   const { config, error } = await _wcl.getWCConfig(this);
-   const { main, trigger } = this.#nodes;
+    const { config, error } = await _wcl.getWCConfig(this);
+    const { main, trigger } = this.#nodes;
 
     if (error) {
       console.warn(`${_wcl.classToTagName(this.constructor.name)}: ${error}`);
@@ -142,6 +146,9 @@ export class MscAnyPip extends HTMLElement {
 
     // upgradeProperty
     Object.keys(defaults).forEach((key) => this.#upgradeProperty(key));
+
+    // remove script[type=application/json]
+    Array.from(this.querySelectorAll('script[type="application/json"]')).forEach((script) => script.remove());
 
     // not suppout
     if (!window?.documentPictureInPicture) {
@@ -171,7 +178,9 @@ export class MscAnyPip extends HTMLElement {
       }
     } else {
       switch (attrName) {
-        default:
+        case 'width':
+        case 'height':
+          this.#config[attrName] = _wcl.isNumeric(newValue) ? parseFloat(newValue) : defaults[attrName];
           break;
       }
     }
@@ -223,6 +232,32 @@ export class MscAnyPip extends HTMLElement {
     }
   }
 
+  set width(value) {
+    if (value) {
+      this.setAttribute('width', value);
+    } else {
+      this.removeAttribute('width');
+    }
+  }
+
+  get width() {
+    const { width } = this.getBoundingClientRect();
+    return this.#config.width !== 0 ? this.#config.width : width;
+  }
+
+  set height(value) {
+    if (value) {
+      this.setAttribute('height', value);
+    } else {
+      this.removeAttribute('height');
+    }
+  }
+
+  get height() {
+    const { height } = this.getBoundingClientRect();
+    return this.#config.height !== 0 ? this.#config.height : height;
+  }
+
   #fireEvent(evtName, detail) {
     this.dispatchEvent(new CustomEvent(evtName,
       {
@@ -240,7 +275,6 @@ export class MscAnyPip extends HTMLElement {
       return;
     }
 
-    const { width, height } = this.getBoundingClientRect();
     const clones = children.map(
       (element) => {
         const clone = element.cloneNode(true);
@@ -253,8 +287,8 @@ export class MscAnyPip extends HTMLElement {
     // pip
     const delta = 30;
     const pipWindow = await window?.documentPictureInPicture.requestWindow({
-      width,
-      height: height + delta
+      width: this.width,
+      height: this.height + delta
     });
     _wcl.cloneStyleSheetsToDocument(pipWindow.document);
     children.forEach((child) => pipWindow.document.body.append(child));
