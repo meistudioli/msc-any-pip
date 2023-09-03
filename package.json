@@ -1,6 +1,6 @@
 {
   "name": "msc-any-pip",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Imaging what if we can let anything Picture-in-Picture (not only <video />) ?! Here comes <msc-any-pip /> to let it dream comes true. <msc-any-pip /> apply Document Picture-in-Picture API to given elements have Picture-in-Picture feature.",
   "main": "index.html",
   "scripts": {

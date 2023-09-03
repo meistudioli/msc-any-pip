@@ -103,7 +103,7 @@ msc-any-pip {
 
 - **width**
 
-Set Picture-in-Picture window width. Default is &lt;msc-any-pip />'s `width`. （Picture-in-Picture's min window width is 300）
+Set Picture-in-Picture window width. Default is &lt;msc-any-pip />'s `clientWidth`. （Picture-in-Picture's min window width is 300）
 
 ```html
 <msc-any-pip width="450">
@@ -113,7 +113,7 @@ Set Picture-in-Picture window width. Default is &lt;msc-any-pip />'s `width`. �
 
 - **height**
 
-Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `height`. （Picture-in-Picture's min window height is 300）
+Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `clientHeight`. （Picture-in-Picture's min window height is 300）
 
 ```html
 <msc-any-pip height="300">
@@ -125,8 +125,8 @@ Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `height`. 
 
 | Property Name | Type | Description |
 | ----------- | ----------- | ----------- |
-| width | Number | Getter / Setter for &lt;msc-any-pip />'s width. This will affect Picture-in-Picture window width. Default is &lt;msc-any-pip />'s width. |
-| height | Number | Getter / Setter for &lt;msc-any-pip />'s height. This will affect Picture-in-Picture window height. Default is &lt;msc-any-pip />'s height. |
+| width | Number | Getter / Setter for Picture-in-Picture window width. Default is &lt;msc-any-pip />'s clientWidth. |
+| height | Number | Getter / Setter for Picture-in-Picture window height. Default is &lt;msc-any-pip />'s clientHeight. |
 
 ## Events
 
