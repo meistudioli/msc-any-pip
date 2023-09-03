@@ -9,8 +9,8 @@ import { _wccss } from './common-css.js';
 
 
 const defaults = {
-  width: 0,
-  height: 0
+  winwidth: 0,
+  winheight: 0
 };
 const booleanAttrs = []; // booleanAttrs default should be false
 const objectAttrs = [];
@@ -178,8 +178,8 @@ export class MscAnyPip extends HTMLElement {
       }
     } else {
       switch (attrName) {
-        case 'width':
-        case 'height':
+        case 'winwidth':
+        case 'winheight':
           this.#config[attrName] = _wcl.isNumeric(newValue) ? parseFloat(newValue) : defaults[attrName];
           break;
       }
@@ -232,30 +232,30 @@ export class MscAnyPip extends HTMLElement {
     }
   }
 
-  set width(value) {
+  set winwidth(value) {
     if (value) {
-      this.setAttribute('width', value);
+      this.setAttribute('winwidth', value);
     } else {
-      this.removeAttribute('width');
+      this.removeAttribute('winwidth');
     }
   }
 
-  get width() {
+  get winwidth() {
     const { width } = this.getBoundingClientRect();
-    return this.#config.width !== 0 ? this.#config.width : width;
+    return this.#config.winwidth !== 0 ? this.#config.winwidth : width;
   }
 
-  set height(value) {
+  set winheight(value) {
     if (value) {
-      this.setAttribute('height', value);
+      this.setAttribute('winheight', value);
     } else {
-      this.removeAttribute('height');
+      this.removeAttribute('winheight');
     }
   }
 
-  get height() {
+  get winheight() {
     const { height } = this.getBoundingClientRect();
-    return this.#config.height !== 0 ? this.#config.height : height;
+    return this.#config.winheight !== 0 ? this.#config.winheight : height;
   }
 
   #fireEvent(evtName, detail) {
@@ -287,8 +287,8 @@ export class MscAnyPip extends HTMLElement {
     // pip
     const delta = 30;
     const pipWindow = await window?.documentPictureInPicture.requestWindow({
-      width: this.width,
-      height: this.height + delta
+      width: this.winwidth,
+      height: this.winheight + delta
     });
     _wcl.cloneStyleSheetsToDocument(pipWindow.document);
     children.forEach((child) => pipWindow.document.body.append(child));

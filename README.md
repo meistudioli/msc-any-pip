@@ -27,8 +27,8 @@ Put &lt;msc-any-pip /> into HTML document. It will have different functions and 
 <msc-any-pip>
   <script type="application/json">
     {
-      "width": 450,
-      "height": 300
+      "winwidth": 450,
+      "winheight": 300
     }
   </script>
 
@@ -69,13 +69,13 @@ nodeA.appendChild(template.content.cloneNode(true));
 const nodeB = new MscAnyPip();
 document.body.appendChild(nodeB);
 nodeB.appendChild(template.content.cloneNode(true));
-nodeB.width = 450;
-nodeB.height = 300;
+nodeB.winwidth = 450;
+nodeB.winheight = 300;
 
 // new instance with Class & default config
 const config = {
-  width: 450,
-  height: 300
+  winwidth: 450,
+  winheight: 300
 };
 const nodeC = new MscAnyPip(config);
 document.body.appendChild(nodeC);
@@ -101,22 +101,22 @@ msc-any-pip {
 
 &lt;msc-any-pip /> supports some attributes to let it become more convenience & useful.
 
-- **width**
+- **winwidth**
 
 Set Picture-in-Picture window width. Default is &lt;msc-any-pip />'s `clientWidth`. （Picture-in-Picture's min window width is 300）
 
 ```html
-<msc-any-pip width="450">
+<msc-any-pip winwidth="450">
   ...
 </msc-any-pip>
 ```
 
-- **height**
+- **winheight**
 
 Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `clientHeight`. （Picture-in-Picture's min window height is 300）
 
 ```html
-<msc-any-pip height="300">
+<msc-any-pip winheight="300">
   ...
 </msc-any-pip>
 ```
@@ -125,8 +125,8 @@ Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `clientHei
 
 | Property Name | Type | Description |
 | ----------- | ----------- | ----------- |
-| width | Number | Getter / Setter for Picture-in-Picture window width. Default is &lt;msc-any-pip />'s clientWidth. |
-| height | Number | Getter / Setter for Picture-in-Picture window height. Default is &lt;msc-any-pip />'s clientHeight. |
+| winwidth | Number | Getter / Setter for Picture-in-Picture window width. Default is &lt;msc-any-pip />'s clientWidth. |
+| winheight | Number | Getter / Setter for Picture-in-Picture window height. Default is &lt;msc-any-pip />'s clientHeight. |
 
 ## Events
 
