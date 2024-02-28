@@ -18,7 +18,7 @@ Object.defineProperties(_wcl, {
       let error, config;
 
       const remoteconfig = host.getAttribute('remoteconfig');
-      const script = host.querySelector('script');
+      const script = host.querySelector(':scope > script[type="application/json"]');
 
       if (remoteconfig) {
         // fetch remote config once [remoteconfig] exist
@@ -537,17 +537,25 @@ Object.defineProperties(_wcl, {
     configurable: true,
     enumerable: true,
     value: function(e) {
-      let x, y, docElement, body;
+      let x, y, clientX, clientY, docElement, body;
       
       docElement = document.documentElement;
 
+      if (e?.touches && e?.touches?.length > 0) {
+        clientX = e?.touches?.[0]?.clientX;
+        clientY = e?.touches?.[0]?.clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+
       //x
       body = document.body || { scrollLeft: 0 };
-      x = e.pageX || (e.clientX + (docElement.scrollLeft || body.scrollLeft) - (docElement.clientLeft || 0));
+      x = e?.pageX || (clientX + (docElement.scrollLeft || body.scrollLeft) - (docElement.clientLeft || 0));
 
       //y
       body = document.body || { scrollTop: 0 };
-      y = e.pageY || (e.clientY + (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0));
+      y = e?.pageY || (clientY + (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0));
 
       return { x, y };
     }

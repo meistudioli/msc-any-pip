@@ -7,7 +7,6 @@ import { _wccss } from './common-css.js';
  - https://developer.chrome.com/docs/web-platform/document-picture-in-picture/
 */
 
-
 const defaults = {
   winwidth: 0,
   winheight: 0
@@ -91,6 +90,13 @@ if (CSS?.registerProperty) {
       inherits: true,
       initialValue: '#39e75f'
     });
+
+    CSS.registerProperty({
+      name: '--msc-any-pip-button-z-index',
+      syntax: '<number>',
+      inherits: true,
+      initialValue: '1'
+    });
   } catch(err) {
     console.warn(`msc-any-pip: ${err.message}`);
   }
@@ -149,7 +155,7 @@ export class MscAnyPip extends HTMLElement {
     Object.keys(defaults).forEach((key) => this.#upgradeProperty(key));
 
     // remove script[type=application/json]
-    Array.from(this.querySelectorAll('script[type="application/json"]')).forEach((script) => script.remove());
+    Array.from(this.querySelectorAll(':scope > script[type="application/json"]')).forEach((script) => script.remove());
 
     // not suppout
     if (!window?.documentPictureInPicture) {
