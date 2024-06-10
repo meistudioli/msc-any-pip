@@ -25,6 +25,14 @@ ${_wccss}
 
 :host{position:relative;display:block;}
 
+:host(.align-container-size) {
+  block-size: 100%;
+  
+  .main {
+    --block-size: 100%;
+  }
+}
+
 .main {
   --icon-pip: path('M2.4,11.4v-2H6L1.7,5.1l1.4-1.4L7.4,8V4.4h2v7H2.4z M4.4,20.4c-0.5,0-1-0.2-1.4-0.6c-0.4-0.4-0.6-0.9-0.6-1.4v-5h2v5h8v2 H4.4z M20.4,13.4v-7h-9v-2h9c0.5,0,1,0.2,1.4,0.6c0.4,0.4,0.6,0.9,0.6,1.4v7H20.4z M14.4,20.4v-5h8v5H14.4z');
 
@@ -35,6 +43,8 @@ ${_wccss}
   --btn-size: 40px;
   --btn-icon-color: rgba(255 255 255);
   --btn-z-index: var(--msc-any-pip-button-z-index, 1);
+
+  block-size: var(--block-size);
 }
 
 .btn-pip {
@@ -59,7 +69,7 @@ ${_wccss}
 .btn-pip:active{scale:.8;transition-duration:0ms;}
 .btn-pip:focus-visible{--btn-opacity:var(--btn-opacity-active);}
 
-.main__slot{position:relative;inline-size:100%;display:block;}
+.main__slot{position:relative;inline-size:100%;block-size:var(--block-size);display:block;}
 .main__slot::slotted(*){max-inline-size:100%;}
 .main__slot::slotted(.msc-any-pip-cloned){visibility:hidden;opacity:0;pointer-events:none;}
 

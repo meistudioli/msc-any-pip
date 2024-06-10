@@ -98,6 +98,14 @@ msc-any-pip {
 </style>
 ```
 
+Otherwise delevelopers could also add className - `align-container-size` to make &lt;msc-any-pip />'s size same as container's size.（default is `inline-size: 100%` only）
+
+```html
+<msc-any-pip class="align-container-size">
+  ...
+</msc-any-pip>
+```
+
 ## Attributes
 
 &lt;msc-any-pip /> supports some attributes to let it become more convenience & useful.
