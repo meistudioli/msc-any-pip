@@ -23,14 +23,17 @@ template.innerHTML = `
 <style>
 ${_wccss}
 
-:host{position:relative;display:block;}
+:host {
+  --block-size: auto;
+
+  position: relative;
+  display: block;
+}
 
 :host(.align-container-size) {
+  --block-size: 100%;
+
   block-size: 100%;
-  
-  .main {
-    --block-size: 100%;
-  }
 }
 
 .main {
