@@ -291,7 +291,7 @@ export class MscAnyPip extends HTMLElement {
   async _onClick() {
     const children = [...this.children];
 
-    if (!children.length) {
+    if (!children.length || !window?.documentPictureInPicture) {
       return;
     }
 
@@ -328,6 +328,10 @@ export class MscAnyPip extends HTMLElement {
       },
       { once:true }
     );
+  }
+
+  requestPictureInPicture() {
+    this.#nodes.trigger.click();
   }
 }
 

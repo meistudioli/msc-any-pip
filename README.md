@@ -137,6 +137,12 @@ Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `clientHei
 | winwidth | Number | Getter / Setter for Picture-in-Picture window width. Default is &lt;msc-any-pip />'s clientWidth. |
 | winheight | Number | Getter / Setter for Picture-in-Picture window height. Default is &lt;msc-any-pip />'s clientHeight. |
 
+## Mathod
+
+| Mathod Signature | Description |
+| ----------- | ----------- |
+| requestPictureInPicture | Request &lt;msc-any-pip /> turn in Document Picture-in-Picture mode. |
+
 ## Events
 
 | Event Signature | Description |
