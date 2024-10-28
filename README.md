@@ -28,7 +28,9 @@ Put &lt;msc-any-pip /> into HTML document. It will have different functions and 
   <script type="application/json">
     {
       "winwidth": 450,
-      "winheight": 300
+      "winheight": 300,
+      "disallowreturntoopener": false,
+      "preferinitialwindowplacement": false
     }
   </script>
 
@@ -75,7 +77,9 @@ nodeB.winheight = 300;
 // new instance with Class & default config
 const config = {
   winwidth: 450,
-  winheight: 300
+  winheight: 300,
+  disallowreturntoopener: false,
+  preferinitialwindowplacement: true
 };
 const nodeC = new MscAnyPip(config);
 document.body.appendChild(nodeC);
@@ -130,12 +134,34 @@ Set Picture-in-Picture window height. Default is &lt;msc-any-pip />'s `clientHei
 </msc-any-pip>
 ```
 
+- **disallowreturntoopener**
+
+Hides the "back to tab" button in the Picture-in-Picture window if true. It is false by default (not set).
+
+```html
+<msc-any-pip disallowreturntoopener>
+  ...
+</msc-any-pip>
+```
+
+- **preferinitialwindowplacement**
+
+Open the Picture-in-Picture window in its default position and size if true. It is false by default (not set).
+
+```html
+<msc-any-pip preferinitialwindowplacement>
+  ...
+</msc-any-pip>
+```
+
 ## Properties
 
 | Property Name | Type | Description |
 | ----------- | ----------- | ----------- |
 | winwidth | Number | Getter / Setter for Picture-in-Picture window width. Default is &lt;msc-any-pip />'s clientWidth. |
 | winheight | Number | Getter / Setter for Picture-in-Picture window height. Default is &lt;msc-any-pip />'s clientHeight. |
+| disallowreturntoopener | Boolean | Getter / Setter for disallowreturntoopener. Hides the "back to tab" button in the Picture-in-Picture window if true. It is false by default. |
+| preferinitialwindowplacement | Boolean | Getter / Setter for preferinitialwindowplacement. Open the Picture-in-Picture window in its default position and size if true. It is false by default. |
 
 ## Mathod
 

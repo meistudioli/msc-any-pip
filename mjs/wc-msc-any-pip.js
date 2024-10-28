@@ -9,9 +9,11 @@ import { _wccss } from './common-css.js';
 
 const defaults = {
   winwidth: 0,
-  winheight: 0
+  winheight: 0,
+  preferinitialwindowplacement: false,
+  disallowreturntoopener: false
 };
-const booleanAttrs = []; // booleanAttrs default should be false
+const booleanAttrs = ['disallowreturntoopener', 'preferinitialwindowplacement']; // booleanAttrs default should be false
 const objectAttrs = [];
 const custumEvents = {
   piping: 'msc-any-pip-piping',
@@ -202,6 +204,11 @@ export class MscAnyPip extends HTMLElement {
         case 'winheight':
           this.#config[attrName] = _wcl.isNumeric(newValue) ? parseFloat(newValue) : defaults[attrName];
           break;
+
+        case 'disallowreturntoopener':
+        case 'preferinitialwindowplacement':
+          this.#config[attrName] = true;
+          break;
       }
     }
   }
@@ -278,6 +285,22 @@ export class MscAnyPip extends HTMLElement {
     return this.#config.winheight !== 0 ? this.#config.winheight : height;
   }
 
+  set preferinitialwindowplacement(value) {
+    this.toggleAttribute('preferinitialwindowplacement', Boolean(value));
+  }
+
+  get preferinitialwindowplacement() {
+    return this.#config.preferinitialwindowplacement;
+  }
+
+  set disallowreturntoopener(value) {
+    this.toggleAttribute('disallowreturntoopener', Boolean(value));
+  }
+
+  get disallowreturntoopener() {
+    return this.#config.disallowreturntoopener;
+  }
+
   #fireEvent(evtName, detail) {
     this.dispatchEvent(new CustomEvent(evtName,
       {
@@ -305,10 +328,11 @@ export class MscAnyPip extends HTMLElement {
     );
 
     // pip
-    const delta = 30;
     const pipWindow = await window?.documentPictureInPicture.requestWindow({
       width: this.winwidth,
-      height: this.winheight + delta
+      height: this.winheight,
+      disallowReturnToOpener: this.disallowreturntoopener,
+      preferInitialWindowPlacement: this.preferinitialwindowplacement
     });
     _wcl.cloneStyleSheetsToDocument(pipWindow.document);
     children.forEach((child) => pipWindow.document.body.append(child));

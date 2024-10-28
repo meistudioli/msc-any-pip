@@ -234,6 +234,13 @@ body{position:relative;inline-size:100vw;block-size:100vh;margin:0;background:va
 }
 
 msc-any-pip:not(:defined){visibility:hidden;}
+
+iframe {
+  @media (display-mode: picture-in-picture) {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+}
 </style>
 </head>
 
