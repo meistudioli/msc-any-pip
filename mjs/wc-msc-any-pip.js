@@ -11,9 +11,10 @@ const defaults = {
   winwidth: 0,
   winheight: 0,
   preferinitialwindowplacement: false,
-  disallowreturntoopener: false
+  disallowreturntoopener: false,
+  dismisswhenbacktoopener: false
 };
-const booleanAttrs = ['disallowreturntoopener', 'preferinitialwindowplacement']; // booleanAttrs default should be false
+const booleanAttrs = ['disallowreturntoopener', 'preferinitialwindowplacement', 'dismisswhenbacktoopener']; // booleanAttrs default should be false
 const objectAttrs = [];
 const custumEvents = {
   piping: 'msc-any-pip-piping',
@@ -207,6 +208,7 @@ export class MscAnyPip extends HTMLElement {
 
         case 'disallowreturntoopener':
         case 'preferinitialwindowplacement':
+        case 'dismisswhenbacktoopener':
           this.#config[attrName] = true;
           break;
       }
@@ -301,6 +303,14 @@ export class MscAnyPip extends HTMLElement {
     return this.#config.disallowreturntoopener;
   }
 
+  set dismisswhenbacktoopener(value) {
+    this.toggleAttribute('dismisswhenbacktoopener', Boolean(value));
+  }
+
+  get dismisswhenbacktoopener() {
+    return this.#config.dismisswhenbacktoopener;
+  }
+  
   #fireEvent(evtName, detail) {
     this.dispatchEvent(new CustomEvent(evtName,
       {
@@ -314,7 +324,7 @@ export class MscAnyPip extends HTMLElement {
   async _onClick() {
     const children = [...this.children];
 
-    if (!children.length || !window?.documentPictureInPicture) {
+    if (!children.length || !window.documentPictureInPicture) {
       return;
     }
 
@@ -328,7 +338,7 @@ export class MscAnyPip extends HTMLElement {
     );
 
     // pip
-    const pipWindow = await window?.documentPictureInPicture.requestWindow({
+    const pipWindow = await window.documentPictureInPicture.requestWindow({
       width: this.winwidth,
       height: this.winheight,
       disallowReturnToOpener: this.disallowreturntoopener,
@@ -365,3 +375,21 @@ const T = _wcl.classToTagName('MscAnyPip');
 if (S.customElements && S.shadowDOM && S.template && !window.customElements.get(T)) {
   window.customElements.define(_wcl.classToTagName('MscAnyPip'), MscAnyPip);
 }
+
+// close pipWin which opened by msc-any-pip
+window.customElements.whenDefined('msc-any-pip').then(
+  () => {
+    document.addEventListener('visibilitychange',
+      () => {
+        if (document.hidden) {
+          return;
+        }
+
+        const active = document.querySelector('msc-any-pip[dismisswhenbacktoopener] .msc-any-pip-cloned');
+        if (active && window.documentPictureInPicture?.window) {
+          window.documentPictureInPicture.window.close();
+        }
+      }
+    );
+  }
+);

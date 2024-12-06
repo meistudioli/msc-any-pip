@@ -167,6 +167,47 @@ Object.defineProperties(_wcl, {
       );
     }
   },
+  checkVisibility: {
+    configurable: true,
+    enumerable: true,
+    value: function(element) {
+      let result = true;
+
+      if (element.checkVisibility) {
+        result = element.checkVisibility({ contentVisibilityAuto:true, opacityProperty:true, visibilityProperty:true });
+      } else if (element.computedStyleMap) {
+        const allComputedStyles = element.computedStyleMap();
+        const { value: display } = allComputedStyles.get('display');
+        const { value: opacity } = allComputedStyles.get('opacity');
+        const { value: visibility } = allComputedStyles.get('visibility');
+        const { value: contentVisibility } = allComputedStyles.get('content-visibility');
+
+        result =
+          opacity === 0 || 
+          ['none', 'contents'].includes(display) ||
+          visibility === 'hidden' || 
+          contentVisibility === 'auto'
+            ? false
+            : true;
+      } else if (window.getComputedStyle) {
+        const allComputedStyles = window.getComputedStyle(element);
+        const display = allComputedStyles.getPropertyValue('display');
+        const opacity = allComputedStyles.getPropertyValue('opacity');
+        const visibility = allComputedStyles.getPropertyValue('visibility');
+        const contentVisibility = allComputedStyles.getPropertyValue('content-visibility');
+
+        result =
+          +opacity === 0 || 
+          ['none', 'contents'].includes(display) ||
+          visibility === 'hidden' || 
+          contentVisibility === 'auto'
+            ? false
+            : true;
+      }
+
+      return result;
+    }
+  },
   rgbToHex: {
     configurable: true,
     enumerable: true,
@@ -776,6 +817,15 @@ Object.defineProperties(_wcl, {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
   },
+  getRandomIntInclusive: {
+    configurable: true,
+    enumerable: true,
+    value: (min, max) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  },
   grabStyleSheet: {
     configurable: true,
     enumerable: true,
@@ -830,6 +880,45 @@ Object.defineProperties(_wcl, {
       }
 
       return objEqual;
+    }
+  },
+
+  isValidURL: {
+    configurable: true,
+    enumerable: true,
+    value: function(url) {
+      try { 
+        return Boolean(new URL(url)); 
+      }
+      catch(e){ 
+        return false; 
+      }
+    }
+  },
+
+  loadImage: {
+    configurable: true,
+    enumerable: true,
+    value: function(url, crossOrigin) {
+      return new Promise(
+        (resolve, reject) => {
+          const img = new Image();
+          
+          img.onload = () => {
+            resolve(img);
+          };
+
+          img.onerror = (e) => {
+            reject(e);
+          };
+
+          if (typeof crossOrigin !== 'undefined') {
+            img.crossOrigin = crossOrigin;
+          }
+          
+          img.src = url;
+        }
+      );
     }
   },
 

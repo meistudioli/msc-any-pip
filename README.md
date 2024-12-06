@@ -15,7 +15,7 @@ Imaging what if we can let anything Picture-in-Picture (not only &lt;video />) ?
 ```html
 <script
   type="module"
-  src="https://your-domain/wc-msc-any-pip.js">        
+  src="https://unpkg.com/msc-any-pip/mjs/wc-msc-any-pip.js">        
 </script>
 ```
 
@@ -30,7 +30,8 @@ Put &lt;msc-any-pip /> into HTML document. It will have different functions and 
       "winwidth": 450,
       "winheight": 300,
       "disallowreturntoopener": false,
-      "preferinitialwindowplacement": false
+      "preferinitialwindowplacement": false,
+      "dismisswhenbacktoopener": false
     }
   </script>
 
@@ -154,6 +155,16 @@ Open the Picture-in-Picture window in its default position and size if true. It 
 </msc-any-pip>
 ```
 
+- **dismisswhenbacktoopener**
+
+Auto dismiss the Picture-in-Picture window when user switch back to the opener window if true. It is false by default (not set)..
+
+```html
+<msc-any-pip dismisswhenbacktoopener>
+  ...
+</msc-any-pip>
+```
+
 ## Properties
 
 | Property Name | Type | Description |
@@ -162,6 +173,7 @@ Open the Picture-in-Picture window in its default position and size if true. It 
 | winheight | Number | Getter / Setter for Picture-in-Picture window height. Default is &lt;msc-any-pip />'s clientHeight. |
 | disallowreturntoopener | Boolean | Getter / Setter for disallowreturntoopener. Hides the "back to tab" button in the Picture-in-Picture window if true. It is false by default. |
 | preferinitialwindowplacement | Boolean | Getter / Setter for preferinitialwindowplacement. Open the Picture-in-Picture window in its default position and size if true. It is false by default. |
+| dismisswhenbacktoopener | Boolean | Getter / Setter for dismisswhenbacktoopener. Auto dismiss the Picture-in-Picture window when user switch back to the opener window if true. It is false by default. |
 
 ## Mathod
 
